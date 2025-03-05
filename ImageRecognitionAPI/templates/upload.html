@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Recognition</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        color: #555;
+        margin-top: 20px;
+        font-size: 1.8rem;
+        display: none; /* Hide initially */
+      }
+
+      /* Form Styles */
+      #uploadForm {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      #fileInput {
+        display: none;
+      }
+
+      .file-upload-label {
+        display: inline-block;
+        background: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .file-upload-label:hover {
+        background: #0056b3;
+      }
+
+      button[type="submit"] {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.3s ease;
+      }
+
+      button[type="submit"]:hover {
+        background: #218838;
+      }
+
+      /* Results Styles */
+      #results {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        margin-top: 20px;
+        display: none; /* Hide initially */
+      }
+
+      .prediction-card {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+      }
+
+      .prediction-card h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .prediction-card p {
+        margin: 5px 0;
+        color: #555;
+      }
+
+      .top-prediction {
+        background: #e3f2fd;
+        border-color: #90caf9;
+      }
+
+      .top-prediction h3 {
+        color: #1976d2;
+      }
+
+      /* Confidence Bar */
+      .confidence-bar {
+        background: #007bff;
+        height: 10px;
+        border-radius: 5px;
+        margin-top: 5px;
+      }
+
+      /* Image Preview */
+      #imagePreview {
+        width: 300px;
+        margin-top: 10px;
+        border-radius: 5px;
+        display: none;
+      }
+
+      /* Loading Spinner */
+      #loading {
+        display: none;
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        #uploadForm,
+        #results {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="/"
+      style="
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #3498db;
+      "
+      >Back to Home</a
+    >
+    <h1>Image Recognition</h1>
+    <form id="uploadForm">
+      <label for="fileInput" class="file-upload-label">Choose an Image</label>
+      <input type="file" id="fileInput" name="file" accept="image/*" />
+      <button type="submit">Upload</button>
+    </form>
+    <img id="imagePreview" src="#" alt="Image Preview" />
+    <div id="loading">Loading...</div>
+    <h2 id="resultsHeading">Results:</h2>
+    <div id="results"></div>
+
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const fileInput = document.getElementById("fileInput");
+          const results = document.getElementById("results");
+          const resultsHeading = document.getElementById("resultsHeading");
+          const loading = document.getElementById("loading");
+
+          if (fileInput.files.length === 0) {
+            results.innerHTML =
+              "<p style='color: red;'>Please select an image.</p>";
+            return;
+          }
+
+          // Show loading spinner
+          loading.style.display = "block";
+          results.innerHTML = "";
+          resultsHeading.style.display = "none"; // Hide results heading initially
+          results.style.display = "none"; // Hide results initially
+
+          const formData = new FormData();
+          formData.append("file", fileInput.files[0]);
+
+          try {
+            const response = await fetch("http://127.0.0.1:5000/recognize", {
+              method: "POST",
+              body: formData,
+            });
+            const data = await response.json();
+
+            // Clear previous results
+            results.innerHTML = "";
+
+            // Display top prediction
+            const topPrediction = data.top_prediction;
+            results.innerHTML += `
+                        <div class="prediction-card top-prediction">
+                            <h3>Top Prediction: ${topPrediction.label}</h3>
+                            <p>Confidence: ${topPrediction.confidence}</p>
+                            <div class="confidence-bar" style="width: ${topPrediction.confidence};"></div>
+                        </div>
+                    `;
+
+            // Display all predictions
+            data.predictions.forEach((prediction, index) => {
+              results.innerHTML += `
+                            <div class="prediction-card">
+                                <h3>Prediction ${index + 1}: ${
+                prediction.label
+              }</h3>
+                                <p>Confidence: ${prediction.confidence}</p>
+                                <div class="confidence-bar" style="width: ${
+                                  prediction.confidence
+                                };"></div>
+                            </div>
+                        `;
+            });
+
+            // Show results heading and results
+            resultsHeading.style.display = "block";
+            results.style.display = "block";
+          } catch (error) {
+            results.innerHTML = `<p style='color: red;'>Error: ${error.message}</p>`;
+            resultsHeading.style.display = "block";
+            results.style.display = "block";
+          } finally {
+            // Hide loading spinner
+            loading.style.display = "none";
+          }
+        });
+
+      // Show image preview
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", function () {
+          const fileInput = document.getElementById("fileInput");
+          const imagePreview = document.getElementById("imagePreview");
+
+          if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imagePreview.src = e.target.result;
+              imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Recognition API</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+
+      a {
+        color: #3498db;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Header */
+      header {
+        background: #3498db;
+        color: #fff;
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        margin: 0;
+      }
+
+      header p {
+        font-size: 1.2rem;
+        margin: 10px 0 0;
+      }
+
+      /* Features Section */
+      #features {
+        padding: 40px 20px;
+        background: #f9f9f9;
+        text-align: center;
+      }
+
+      #features h2 {
+        margin-bottom: 20px;
+      }
+
+      .feature {
+        display: inline-block;
+        width: 30%;
+        margin: 10px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature h3 {
+        margin: 0 0 10px;
+      }
+
+      /* How It Works */
+      #how-it-works {
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      #how-it-works ol {
+        list-style: none;
+        padding: 0;
+      }
+
+      #how-it-works ol li {
+        margin: 20px 0;
+        font-size: 1.1rem;
+      }
+
+      /* Pricing Section */
+      #pricing {
+        padding: 40px 20px;
+        background: #f9f9f9;
+        text-align: center;
+      }
+
+      .pricing-plan {
+        display: inline-block;
+        width: 30%;
+        margin: 10px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .pricing-plan h3 {
+        margin: 0 0 10px;
+      }
+
+      .pricing-plan p {
+        margin: 10px 0;
+      }
+
+      .pricing-plan .price {
+        font-size: 2rem;
+        color: #3498db;
+      }
+
+      /* Call-to-Action */
+      #cta {
+        padding: 40px 20px;
+        background: #3498db;
+        color: #fff;
+        text-align: center;
+      }
+
+      #cta h2 {
+        margin: 0 0 20px;
+      }
+
+      #cta a {
+        background: #fff;
+        color: #3498db;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.2rem;
+      }
+
+      /* Footer */
+      footer {
+        padding: 20px;
+        background: #2c3e50;
+        color: #fff;
+        text-align: center;
+      }
+
+      footer a {
+        color: #3498db;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .feature,
+        .pricing-plan {
+          width: 100%;
+          margin: 10px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav style="background: #3498db; padding: 10px; text-align: center">
+      <a href="/" style="color: #fff; margin: 0 10px">Home</a>
+      <a
+        href="/upload"
+        style="
+          background: #fff;
+          color: #3498db;
+          padding: 10px 20px;
+          border-radius: 5px;
+          margin-top: 20px;
+          display: inline-block;
+        "
+        >Try It Now</a
+      >
+    </nav>
+    <!-- Header -->
+    <header>
+      <h1>Image Recognition API</h1>
+      <p>Powerful AI-driven image recognition for your applications.</p>
+      <a
+        href="#cta"
+        style="
+          background: #fff;
+          color: #3498db;
+          padding: 10px 20px;
+          border-radius: 5px;
+          margin-top: 20px;
+          display: inline-block;
+        "
+        >Get Started</a
+      >
+    </header>
+
+    <!-- Features Section -->
+    <section id="features">
+      <h2>Features</h2>
+      <div class="feature">
+        <h3>Accurate Predictions</h3>
+        <p>Identify objects, scenes, and more with high accuracy.</p>
+      </div>
+      <div class="feature">
+        <h3>Easy Integration</h3>
+        <p>Simple API endpoints for seamless integration.</p>
+      </div>
+      <div class="feature">
+        <h3>Scalable</h3>
+        <p>Handle thousands of requests per second with ease.</p>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Sign up and get your API key.</li>
+        <li>Upload an image to our API endpoint.</li>
+        <li>Receive predictions in JSON format.</li>
+      </ol>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <div class="pricing-plan">
+        <h3>Free</h3>
+        <p class="price">$0</p>
+        <p>100 API calls/month</p>
+        <p>Basic support</p>
+      </div>
+      <div class="pricing-plan">
+        <h3>Pro</h3>
+        <p class="price">$10/month</p>
+        <p>1,000 API calls/month</p>
+        <p>Priority support</p>
+      </div>
+      <div class="pricing-plan">
+        <h3>Enterprise</h3>
+        <p class="price">Custom</p>
+        <p>Unlimited API calls</p>
+        <p>Dedicated support</p>
+      </div>
+    </section>
+
+    <!-- Call-to-Action -->
+    <!-- Call-to-Action -->
+    <section id="cta">
+      <h2>Ready to Get Started?</h2>
+      <form id="signupForm" action="/signup" method="POST">
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          style="
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+          "
+        />
+        <button
+          type="submit"
+          style="
+            background: #fff;
+            color: #3498db;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+          "
+        >
+          Sign Up Now
+        </button>
+      </form>
+      <p id="signupMessage" style="margin-top: 10px; color: #fff"></p>
+    </section>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2023 Image Recognition API. All rights reserved.</p>
+      <p>
+        <a href="/docs">Documentation</a> | <a href="/contact">Contact Us</a> |
+        <a href="/privacy">Privacy Policy</a>
+      </p>
+    </footer>
+
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const formData = new FormData(form);
+          const message = document.getElementById("signupMessage");
+
+          try {
+            const response = await fetch("/signup", {
+              method: "POST",
+              body: formData,
+            });
+            const data = await response.json();
+
+            if (data.success) {
+              message.textContent = "Thank you for signing up!";
+              message.style.color = "#fff";
+              form.reset();
+            } else {
+              message.textContent =
+                data.message || "Something went wrong. Please try again.";
+              message.style.color = "#ff6b6b";
+            }
+          } catch (error) {
+            message.textContent = "An error occurred. Please try again.";
+            message.style.color = "#ff6b6b";
+          }
+        });
+    </script>
+  </body>
+</html>
