@@ -41,8 +41,8 @@ The **Image Recognition API** is a powerful tool that uses a pre-trained deep le
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   https://github.com/SashoGjorgjiev/ImageRecognationAPI.git
+   
 Install the dependencies:
 
 bash
